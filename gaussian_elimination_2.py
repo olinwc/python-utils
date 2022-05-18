@@ -15,7 +15,7 @@ num_rows = 5
 
 for i in range(0, num_rows):
     for j in range(0, num_rows):
-        if i > j and A[i][j] != 0:
+        if i > j and A[i][j] != 0.0:
             num_dens[i] = num_dens[i] - num_dens[j] * A[i][j] / A[j][j]
             for k in range(0, num_rows):
                 v[k] = A[i][k] - A[j][k] * A[i][j] / A[j][j]
@@ -25,3 +25,13 @@ for i in range(0, num_rows):
 
 print(A)
 print(num_dens)
+
+x = np.array([[0.0], [0.0], [0.0], [0.0], [0.0]])
+
+for i in range(num_rows-1, -1, -1):
+    x[i] = num_dens[i]
+    for j in range(num_rows-1, i, -1):
+        x[i] = x[i] - x[j] * A[i][j]
+    x[i] = x[i] / A[i][i]
+
+print(x)
